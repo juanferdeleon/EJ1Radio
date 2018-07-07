@@ -2,7 +2,6 @@
 10/07/2018
 Juan Fernando De Leon Quzada
 Carne
-POO
  */
 
 package main
