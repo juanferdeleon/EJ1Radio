@@ -1,7 +1,7 @@
 /*Radio Ejercicio 1
 10/07/2018
 Juan Fernando De Leon Quzada
-Carne 17822
+Carne
 POO
  */
 
