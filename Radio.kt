@@ -14,25 +14,28 @@ fun main(args: Array<String>) {
     //Menu de inicio
 
     do {
-            print("""Radio:
-                1. Encender
-                2. Salir
-                Seleccione una opcion:
-                """.trimIndent())
-            val opSelec: String? = readLine()
-            if (opSelec != null) {
-                    try {
-                            op = opSelec.toInt()
-                            if (op in 1..2){
-                                    opCor = true
-                            }else {
-                                    println("ERROR: $op NO es una opcion valida")
-                            }
-                    } catch (error: NumberFormatException) {
-                            println("ERROR: $opSelec NO es una opcion valida")
-                            opCor = false
-                    }
+        print("""Radio:
+            1. Encender
+            2. Salir
+            Seleccione una opcion:
+            """.trimIndent())
+
+        // Solicita una opcion del menu
+        val opSelec: String? = readLine()
+
+        if (opSelec != null) {
+            try {
+                op = opSelec.toInt()
+                if (op in 1..2){
+                    opCor = true
+                }else {
+                    println("ERROR: $op NO es una opcion valida")
+                }
+            } catch (error: NumberFormatException) {
+                println("ERROR: $opSelec NO es una opcion valida")
+                opCor = false
             }
+        }
     }while (!opCor)
 
     //Crear Radio
@@ -46,13 +49,72 @@ fun main(args: Array<String>) {
     if (op == 1){
         //Encender radio
         radio.turnOn()
-        println(radio)
+
+        var op2: Int = 0
+        var opCor2: Boolean = false
+
+        while (op2 != 7) {
+            //Imprimir el estado del radio y menu
+            println(radio)
+
+            //Solocita una opcion del menu
+            val opSelec2: String? = readLine()
+
+            if (opSelec2 != null) {
+                try {
+                    op2 = opSelec2.toInt()
+                    if (op2 in 1..7){
+                        opCor2 = true
+                    }else {
+                        println("ERROR: $op2 NO es una opcion valida")
+                    }
+                } catch (error: NumberFormatException) {
+                    println("ERROR: $opSelec2 NO es una opcion valida")
+                    opCor2 = false
+                }
+            }
+
+            //Primera opcion(Cambiar de FM a AM)
+            if (op2 == 1){
+                if (radio.recep == "F.M."){
+                    radio.recep = "A.M."
+                    radio.est = 560.0
+                } else {
+                    radio.recep = "F.M"
+                    radio.est = 87.5
+                }
+            }
+
+            //Subir volumen
+            if (op2 == 2){
+                if (radio.vol == 100){
+                    println("El volumen esta al maximo")
+                } else { radio.vol += 10 }
+            }
+
+            //Bajar volumen
+            if (op2 == 3){
+                if (radio.vol == 0){
+                    println("El volumen esta al minimo")
+                } else { radio.vol -= 10 }
+            }
+
+            //Subir estacion
+            if (op2 == 4){
+                println("¿Cuanto sera su salto de estacion?: ")
+
+            }
+        }
+
+
     }
 }
+
+
 class Radio(
-        private var vol: Int,
-        private var est: Double,
-        private var recep: String,
+        var vol: Int,
+        var est: Double,
+        var recep: String,
         var isTurnedOn: Boolean = false
 ){
     fun turnOn(){
@@ -72,6 +134,6 @@ class Radio(
             5. Bajar Estacion
             6. Apagar
             7. Salir
-            Seleccion una opcion: """.trimIndent()
+            Seleccion una opcion:""".trimIndent()
     }
 }
