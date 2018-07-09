@@ -32,7 +32,7 @@ fun main(args: Array<String>) {
                     println("ERROR: $op NO es una opcion valida")
                 }
             } catch (error: NumberFormatException) {
-                println("ERROR: $opSelec NO es una opcion valida")
+                println("ERROR: $opSelec NO es una opcion valida, por favor ingrese un numero")
                 opCor = false
             }
         }
@@ -53,7 +53,7 @@ fun main(args: Array<String>) {
         var op2: Int = 0
         var opCor2: Boolean = false
 
-        while (op2 != 7) {
+        while (!opCor2) {
             //Imprimir el estado del radio y menu
             println(radio)
 
@@ -64,13 +64,12 @@ fun main(args: Array<String>) {
                 try {
                     op2 = opSelec2.toInt()
                     if (op2 in 1..7){
-                        opCor2 = true
+                        opCor2 = false
                     }else {
                         println("ERROR: $op2 NO es una opcion valida")
                     }
                 } catch (error: NumberFormatException) {
-                    println("ERROR: $opSelec2 NO es una opcion valida")
-                    opCor2 = false
+                    println("ERROR: $opSelec2 NO es una opcion valida, por favor ingrese un numero")
                 }
             }
 
@@ -80,7 +79,7 @@ fun main(args: Array<String>) {
                     radio.recep = "A.M."
                     radio.est = 560.0
                 } else {
-                    radio.recep = "F.M"
+                    radio.recep = "F.M."
                     radio.est = 87.5
                 }
             }
@@ -101,8 +100,141 @@ fun main(args: Array<String>) {
 
             //Subir estacion
             if (op2 == 4){
-                println("¿Cuanto sera su salto de estacion?: ")
 
+                var salto: Double = 0.0
+                var opCor3: Boolean = false
+
+                //Si Se encuentra en FM
+                if (radio.recep == "F.M."){
+
+                    //Solicitud de salto de estacion
+
+                    do {
+                        println("¿Cuanto sera su salto de estacion?: ")
+
+                        // Solicita salto
+                        val cantidadSalto: String? = readLine()
+
+                        if (cantidadSalto != null) {
+                            try {
+                                salto = cantidadSalto.toDouble()
+                                radio.est += salto
+                                if (radio.est in 87.5..107.5){
+                                    opCor3 = true
+                                }else {
+                                    println("ERROR: La estacion no existe")
+                                    radio.est -= salto
+                                }
+                            } catch (error: NumberFormatException) {
+                                println("ERROR: $cantidadSalto NO es una opcion valida, por favor ingrese un numero")
+                                opCor3 = false
+                            }
+                        }
+
+                    }while (!opCor3)
+                }else {
+                    //Si se encuentra en AM
+
+                    //Solicitud de salto de estacion
+
+                    do {
+                        println("¿Cuanto sera su salto de estacion?: ")
+
+                        // Solicita salto
+                        val cantidadSalto: String? = readLine()
+
+                        if (cantidadSalto != null) {
+                            try {
+                                salto = cantidadSalto.toDouble()
+                                radio.est += salto
+                                if (radio.est in 500..1600){
+                                    opCor3 = true
+                                }else {
+                                    println("ERROR: La estacion no existe")
+                                    radio.est -= salto
+                                }
+                            } catch (error: NumberFormatException) {
+                                println("ERROR: $cantidadSalto NO es una opcion valida, por favor ingrese un numero")
+                                opCor3 = false
+                            }
+                        }
+
+                    }while (!opCor3)
+                }
+            }
+
+            //Bajar estacion
+            if (op2 == 5){
+
+                var salto: Double = 0.0
+                var opCor3: Boolean = false
+
+                //Si Se encuentra en FM
+                if (radio.recep == "F.M."){
+
+                    //Solicitud de salto de estacion
+
+                    do {
+                        println("¿Cuanto sera su salto de estacion?: ")
+
+                        // Solicita salto
+                        val cantidadSalto: String? = readLine()
+
+                        if (cantidadSalto != null) {
+                            try {
+                                salto = cantidadSalto.toDouble()
+                                radio.est -= salto
+                                if (radio.est in 87.5..107.5){
+                                    opCor3 = true
+                                }else {
+                                    println("ERROR: La estacion no existe")
+                                    radio.est += salto
+                                }
+                            } catch (error: NumberFormatException) {
+                                println("ERROR: $cantidadSalto NO es una opcion valida, por favor ingrese un numero")
+                                opCor3 = false
+                            }
+                        }
+
+                    }while (!opCor3)
+                }else {
+                    //Si se encuentra en AM
+
+                    //Solicitud de salto de estacion
+
+                    do {
+                        println("¿Cuanto sera su salto de estacion?: ")
+
+                        // Solicita salto
+                        val cantidadSalto: String? = readLine()
+
+                        if (cantidadSalto != null) {
+                            try {
+                                salto = cantidadSalto.toDouble()
+                                radio.est -= salto
+                                if (radio.est in 500..1600){
+                                    opCor3 = true
+                                }else {
+                                    println("ERROR: La estacion no existe")
+                                    radio.est += salto
+                                }
+                            } catch (error: NumberFormatException) {
+                                println("ERROR: $cantidadSalto NO es una opcion valida, por favor ingrese un numero")
+                                opCor3 = false
+                            }
+                        }
+
+                    }while (!opCor3)
+                }
+            }
+
+            if (op2 == 6){
+                radio.turnOff()
+            }
+
+            //Salir
+            if (op2 == 7){
+                opCor2 = true
             }
         }
 
